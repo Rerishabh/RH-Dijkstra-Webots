@@ -40,7 +40,7 @@ The Webots implementation scene, supervisor tracking files, controller integrati
 ## 🔍 Scope Boundaries (What Was Not Implemented)
 To maintain project feasibility within the current simulation development cycle, certain specialized configurations and comparative testing cases from the reference paper were intentionally left outside the scope of this project:
 
-* **Norm-Bounded Uncertainty Modeling ($\rho$):** Section III-C of the paper introduces an uncertainty radius around obstacle vectors ($||w_k||_2 \le \rho$) to expand safety margins against sensing anomalies. This implementation utilizes direct access to simulator ground-truth position information through the supervisor node, assuming accurate state estimation.
+* **Norm-Bounded Uncertainty Modeling (||w_k||₂ ≤ ρ):** Section III-C of the paper introduces an uncertainty radius around obstacle vectors to expand safety margins against sensing anomalies. This implementation utilizes direct access to simulator ground-truth position information through the supervisor node, assuming accurate state estimation.
 * **Large-Scale Multi-Scenario Benchmarking:** The reference study evaluates multiple environment configurations and comparative planning scenarios, including larger grid layouts and D* Lite comparisons. This implementation focuses on a single 10×10 environment with dynamic hazards to study recursive replanning behavior and risk-aware cost shaping.
 * **Alternative Experimental Metrics:** The authors report specific performance profiles including Time-to-Goal (TG), Heading Error RMS (HE-RMS), and Rejoining Penalty (RP). This study instead evaluates the environment through path length, risk exposure indices, total planning cycles, and safety event metrics.
 
@@ -60,9 +60,9 @@ To maintain project feasibility within the current simulation development cycle,
 
 ## 📊 Experimental Evaluation & Sensitivity Results
 
-The following benchmarking data was generated directly from simulation runs performed in this project across various risk-sensitivity configurations ($\alpha$):
+The following benchmarking data was generated directly from simulation runs performed in this project across various risk-sensitivity configurations (alpha):
 
-| Alpha Setting ($\alpha$) | RH Planning Cycles | Safety Events (Perimeter Breaches) | Avg Computation Time (ms) | Cumulative Risk Exposure | Total Path Length (Steps Taken) |
+| Alpha Setting (alpha) | RH Planning Cycles | Safety Events (Perimeter Breaches) | Avg Computation Time (ms) | Cumulative Risk Exposure | Total Path Length (Steps Taken) |
 | :---: | :---: | :---: | :---: | :---: | :---: |
 | **0.0** *(Blind Dijkstra)* | 106 | **22** | 3.30 ms | **632.49** | 17 |
 | **1.0** *(Linear Risk)* | 103 | **16** | 3.62 ms | **619.29** | 17 |
@@ -74,8 +74,8 @@ The following benchmarking data was generated directly from simulation runs perf
 *Figure 3: Empirical telemetry data automatically logged by the supervisor controller upon goal arrival during simulation runs.*
 
 ### 🔍 Key Engineering Findings:
-1. **Perimeter Violation Mitigation:** Transitioning from the baseline pathfinder ($\alpha = 0.0$) to active cost-shaping ($\alpha \ge 1.0$) yielded an immediate **27.3% reduction in safety events** (dropping from 22 down to 16 events) within the tested environment.
-2. **Discrete Optimization Stability:** Due to the discrete cell topology of the graph, the path layout plateaus optimally at $\alpha = 1.0$, demonstrating robust behavioral consistency as risk scaling grows steeper; the environment did not contain enough competing paths with different risk profiles to alter the trajectory further at higher exponents.
+1. **Perimeter Violation Mitigation:** Transitioning from the baseline pathfinder (alpha = 0.0) to active cost-shaping (alpha ≥ 1.0) yielded an immediate **27.3% reduction in safety events** (dropping from 22 down to 16 events) within the tested environment.
+2. **Discrete Optimization Stability:** Due to the discrete cell topology of the graph, the path layout plateaus optimally at alpha = 1.0, demonstrating robust behavioral consistency as risk scaling grows steeper; the environment did not contain enough competing paths with different risk profiles to alter the trajectory further at higher exponents.
 3. **Real-Time Execution Feasibility:** Across all trials, global recomputation times consistently stayed below **4.0 milliseconds**, demonstrating the feasibility of real-time execution within the tested simulation environment.
 
 ---
@@ -98,17 +98,13 @@ The following benchmarking data was generated directly from simulation runs perf
 │   └── sensitivity_results.png  # Spreadsheet logs screenshot
 ├── LICENSE                      # Open-source MIT License
 └── README.md
-
-
-
----
-
+```
 ## 🚀 Installation & Replication Guide
 
 To run this simulation setup locally on your machine, execute the following steps:
 
 1. **Clone the Repository:** Download or clone this repository folder onto your local machine.
-2. **Launch Webots:** Open **Webots R2025a** (or newer).
-3. **Open the Simulation World:** Go to `File` $\rightarrow$ `Open World...` and select the world file located at `/worlds/rh_dijkstra_environment.wbt`. The environment includes pre-configured cell topologies, obstacle motion configurations, and node controller bindings.
-4. **Tune Risk Sensitivity:** Open `/controllers/wall_controller/wall_controller.py` in your editor and adjust the global `ALPHA` parameter to your preferred setting ($\alpha = 0.0, 1.0, 2.0, 3.0$).
+2. **Launch Webots:** Open **Webots R2025a** (tested version).
+3. **Open the Simulation World:** Go to `File` → `Open World...` and select the world file located at `/worlds/rh_dijkstra_environment.wbt`. The environment includes pre-configured cell topologies, obstacle motion configurations, and node controller bindings.
+4. **Tune Risk Sensitivity:** Open `/controllers/wall_controller/wall_controller.py` in your editor and adjust the global `ALPHA` parameter to your preferred setting (alpha = 0.0, 1.0, 2.0, 3.0).
 5. **Run the Simulation:** Click the green **Play** button on the Webots window toolbar to start tracking. Upon arrival at the target cell region, the runtime controller will calculate and automatically append your telemetry benchmarks directly to the database file at `/data/sensitivity_study.csv`.
