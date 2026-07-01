@@ -120,12 +120,12 @@ RH-Dijkstra/
 ├── data/
 │   └── sensitivity_study.csv      # Automatically compiled CSV benchmarks sheet
 ├── images/
-│   ├── webots_environment.jpg    # Full application workspace screen setup
-│   ├── arena_environment.jpg      # Close-up layout view of the grid arena
-│   ├── runtime_navigation_1.jpg   # Pass 1 start location snapshot
-│   ├── runtime_navigation_1.1.jpg # Pass 1 midpoint snapshot
-│   ├── runtime_navigation_2.jpg   # Pass 2 alternative route snapshot
-│   ├── runtime_navigation_2.1.jpg # Pass 2 timeline progression snapshot
+│   ├── webots_environment.png   # Full application workspace screen setup
+│   ├── arena_environment.png      # Close-up layout view of the grid arena
+│   ├── runtime_navigation_1.png   # Pass 1 start location snapshot
+│   ├── runtime_navigation_1.1.png # Pass 1 midpoint snapshot
+│   ├── runtime_navigation_2.png   # Pass 2 alternative route snapshot
+│   ├── runtime_navigation_2.1.png # Pass 2 timeline progression snapshot
 │   └── sensitivity_results.png    # Spreadsheet metrics data log crop snippet
 ├── LICENSE                        # Open-source MIT License
 └── README.md                      # Documentation file
