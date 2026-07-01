@@ -1,0 +1,5 @@
+Alpha,RHPlanningCycles,SafetyEvents,AvgComputationTime_ms,CumulativeRiskExposure,TotalPathLength_Steps
+0.0,106,22,3.468,632.492,17
+1.0,103,16,3.247,619.292,17
+2.0,103,16,3.506,619.292,17
+3.0,103,16,3.506,619.292,17
