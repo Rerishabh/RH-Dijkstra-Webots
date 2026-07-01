@@ -16,8 +16,13 @@ GRID_SIZE = 10
 WORLD_MIN_X, WORLD_MAX_X = -1.5, 1.5
 WORLD_MIN_Y, WORLD_MAX_Y = -1.5, 1.5
 
-# Change ALPHA manually here: 0.0 = Classical Baseline, 2.0 = Paper Standard
-ALPHA = 3.0  
+# Risk sensitivity parameter:
+# 0.0 = Classical shortest path baseline
+# 1.0 = Moderate risk awareness
+# 2.0 = Paper standard configuration
+# 3.0 = High risk aversion
+
+ALPHA = 2.0  
 SIGMA = 1.0  
 EPSILON = 1e-5  
 D_SAFE = 0.45  
