@@ -130,6 +130,7 @@ RH-Dijkstra/
 ├── LICENSE                        # Open-source MIT License
 └── README.md                      # Documentation file
 
+```
 ## 🚀 Installation & Replication Guide
 
 To run this simulation setup locally on your machine, follow these steps:
