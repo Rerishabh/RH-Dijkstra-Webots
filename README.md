@@ -130,6 +130,7 @@ RH-Dijkstra/
 ├── LICENSE                        # Open-source MIT License
 └── README.md                      # Documentation file
 
+ ```
 ## 🚀 Installation & Replication Guide
 
 Follow these exact steps to set up the workspace, open the consoles, modify hyperparameters, and run simulations locally using Webots.
