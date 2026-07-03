@@ -55,15 +55,28 @@ This work reproduces the key conceptual ideas of the RH-Dijkstra architecture wi
 * **Journal:** IEEE Access (Volume 14, 2026)
 * **DOI:** [10.1109/ACCESS.2026.3692299](https://doi.org/10.1109/ACCESS.2026.3692299)
 
-### 🧠 Core Mathematical Formulation
+## 🧠 Core Mathematical Formulation
 
-The path cost function evaluates a candidate node $n$ by combining its geometric edge weight with a non-linear risk penalty term parameterized by an adaptive exponent parameter $\alpha$:
+The path cost function evaluates transitions into a candidate cell node by scaling a unit traversal cost using a normalized Gaussian risk estimate and an adaptive risk sensitivity exponent parameter ($\alpha$):
 
-$$Cost(n) = \text{Distance}(current, n) + \beta \cdot \text{Risk}(n)^\alpha$$
+$$
+C(p_k,p_{k+1}) = (1+\tilde{R}(p_{k+1}))^\alpha
+$$
 
-* When $\alpha = 0.0$: The penalty simplifies to a constant background risk factor, causing the controller to default into a classical baseline shortest-path router.
-* When $\alpha \ge 1.0$: The cost field scales non-linearly with proximity to dynamic hazards, pushing the optimized path boundary away from high-risk sectors.
+where:
 
+- $\tilde{R}(p_{k+1})$ is the normalized Gaussian risk value associated with the destination cell.
+- $\alpha$ controls the planner's sensitivity to environmental risk.
+
+### Risk Sensitivity Interpretation
+
+- **When $\alpha = 0.0$:** Every traversable cell receives the same transition cost, causing the planner to behave as a classical shortest-path Dijkstra search.
+
+- **When $\alpha = 1.0$:** The planner introduces linear sensitivity to environmental risk while preserving efficient route selection.
+
+- **When $\alpha = 2.0$:** The paper-standard configuration increasingly penalizes traversal through high-risk regions and promotes safer alternative paths.
+
+- **When $\alpha = 3.0$:** Risk penalties become significantly amplified, encouraging highly conservative navigation behavior.
 ---
 
 ## 🛠️ Simulation Configuration & Specifications
