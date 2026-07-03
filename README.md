@@ -1,10 +1,49 @@
 # Recursive Heatmap Dijkstra Path Planning in Webots
 
-This project was developed as part of an academic exploration of risk-aware mobile robot navigation using Webots and the e-puck robot platform. It presents an educational implementation and evaluation inspired by the Recursive Heatmap Dijkstra (RH-Dijkstra) risk-aware path planning methodology described in the reference literature.
+![Python](https://img.shields.io/badge/Python-3.10+-blue)
+![Webots](https://img.shields.io/badge/Webots-R2025a-green)
+![License](https://img.shields.io/badge/License-MIT-yellow)
+![Robot](https://img.shields.io/badge/Robot-e--puck-orange)
 
-**Target Audience:** This repository is intended for students and researchers interested in mobile robot navigation, risk-aware path planning, and Webots simulation environments.
+Webots implementation of the Recursive Heatmap Dijkstra (RH-Dijkstra) risk-aware path planning algorithm for mobile robots operating in dynamic and uncertain environments using Gaussian risk maps and PID trajectory tracking.
+
+This project was developed as part of an academic exploration of risk-aware mobile robot navigation using Webots and the e-puck robot platform. It presents an educational implementation and evaluation inspired by the Recursive Heatmap Dijkstra (RH-Dijkstra) methodology described in the reference literature.
+
+Target Audience: This repository is intended for students, robotics enthusiasts, and researchers interested in:
+
+- Mobile robot navigation
+- Risk-aware path planning
+- Dynamic obstacle avoidance
+- Webots simulation environments
+- Autonomous robotics research
 
 ---
+
+## ✨ Features
+
+- Recursive Heatmap Dijkstra (RH-Dijkstra) implementation
+- Dynamic obstacle avoidance
+- Gaussian risk diffusion modeling
+- PID trajectory tracking
+- Automatic CSV telemetry logging
+- Risk sensitivity experiments across multiple α values
+- Webots R2025a compatible
+- e-puck robot integration
+- Dynamic replanning support
+
+---
+
+## 🎥 Demonstration Video
+
+Click the thumbnail below to watch the complete simulation demonstration including real-time replanning, obstacle avoidance behavior, risk-map evolution, and experimental evaluation.
+
+[![RH-Dijkstra in Webots Demo](https://img.youtube.com/vi/bDEnAkkta0g/hqdefault.jpg)](https://youtu.be/bDEnAkkta0g)
+
+▶️ **Watch the full simulation video here:**  
+https://youtu.be/bDEnAkkta0g
+
+---
+
 
 ## 📜 Academic Attribution & Reference
 
