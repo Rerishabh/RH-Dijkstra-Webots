@@ -37,10 +37,10 @@ Target Audience: This repository is intended for students, robotics enthusiasts,
 
 Click the thumbnail below to watch the complete simulation demonstration including real-time replanning, obstacle avoidance behavior, risk-map evolution, and experimental evaluation.
 
-[![RH-Dijkstra in Webots Demo](https://img.youtube.com/vi/bDEnAkkta0g/hqdefault.jpg)](https://youtu.be/bDEnAkkta0g)
+[![RH-Dijkstra in Webots Demo](https://img.youtube.com/vi/bDEnAkktaOg/hqdefault.jpg)](https://youtu.be/bDEnAkktaOg)
 
 ▶️ **Watch the full simulation video here:**  
-https://youtu.be/bDEnAkkta0g
+https://youtu.be/bDEnAkktaOg
 
 ---
 
