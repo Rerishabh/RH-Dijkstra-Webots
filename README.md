@@ -68,7 +68,7 @@ where:
 - $\tilde{R}(p_{k+1})$ is the normalized Gaussian risk value associated with the destination cell.
 - $\alpha$ controls the planner's sensitivity to environmental risk.
 
-### Risk Sensitivity Interpretation
+### Effect of α on Navigation Behaviour
 
 - **When $\alpha = 0.0$:** Every traversable cell receives the same transition cost, causing the planner to behave as a classical shortest-path Dijkstra search.
 
