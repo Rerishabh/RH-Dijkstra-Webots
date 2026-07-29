@@ -45,6 +45,55 @@ This project was developed as part of an academic exploration of risk-aware mobi
 
 ---
 
+## 📁 Repository Structure
+
+```text
+RH-Dijkstra-Webots/
+├── controllers/
+│   ├── wall_controller/
+│   │   ├── dijkstra.py
+│   │   └── wall_controller.py
+│   └── pedestrian/
+│       └── pedestrian.py
+│
+├── worlds/
+│   ├── rh_dijkstra_environment.wbt
+│   └── .rh_dijkstra_environment.wbproj
+│
+├── data/
+│   ├── sensitivity_study.csv
+│   ├── tracking_alpha_0.0.csv
+│   ├── tracking_alpha_1.0.csv
+│   ├── tracking_alpha_2.0.csv
+│   └── tracking_alpha_3.0.csv
+│
+├── images/
+│   ├── arena_environment.png
+│   ├── runtime_navigation_1.png
+│   ├── runtime_navigation_1.1.png
+│   ├── runtime_navigation_2.png
+│   ├── runtime_navigation_2.1.png
+│   ├── sensitivity_analysis.png
+│   ├── sensitivity_results.png
+│   ├── tracking_heading_comparison.png
+│   └── webots_environment.png
+│
+├── rh_dijkstra_environment.mp4
+├── rh_dijkstra_environment_1.mp4
+├── LICENSE
+└── README.md
+```
+
+### Main Files
+
+* `dijkstra.py` — Core 4-connected weighted shortest-path search engine.
+* `wall_controller.py` — Supervisor controller responsible for dynamic obstacles, risk-map generation, planning, safety monitoring, and experiment logging.
+* `pedestrian.py` — Low-level e-puck PID waypoint-tracking controller.
+* `sensitivity_study.csv` — Summary metrics generated from the tested $\alpha$ configurations.
+* `tracking_alpha_*.csv` — Timestep-level heading telemetry from individual experiments.
+
+---
+
 ## 📜 Academic Attribution & Reference
 
 This work reproduces selected conceptual ideas of the RH-Dijkstra architecture within a custom simulation environment for educational experimentation, evaluation, and learning. The underlying methodology and risk-aware planning concepts are attributed to:
@@ -431,55 +480,6 @@ Click the **Play ▶️** button in Webots.
 5. Press **Play** again.
 
 Experimental metrics are written to the project's CSV data files after successful completion.
-
----
-
-## 📁 Repository Structure
-
-```text
-RH-Dijkstra-Webots/
-├── controllers/
-│   ├── wall_controller/
-│   │   ├── dijkstra.py
-│   │   └── wall_controller.py
-│   └── pedestrian/
-│       └── pedestrian.py
-│
-├── worlds/
-│   ├── rh_dijkstra_environment.wbt
-│   └── .rh_dijkstra_environment.wbproj
-│
-├── data/
-│   ├── sensitivity_study.csv
-│   ├── tracking_alpha_0.0.csv
-│   ├── tracking_alpha_1.0.csv
-│   ├── tracking_alpha_2.0.csv
-│   └── tracking_alpha_3.0.csv
-│
-├── images/
-│   ├── arena_environment.png
-│   ├── runtime_navigation_1.png
-│   ├── runtime_navigation_1.1.png
-│   ├── runtime_navigation_2.png
-│   ├── runtime_navigation_2.1.png
-│   ├── sensitivity_analysis.png
-│   ├── sensitivity_results.png
-│   ├── tracking_heading_comparison.png
-│   └── webots_environment.png
-│
-├── rh_dijkstra_environment.mp4
-├── rh_dijkstra_environment_1.mp4
-├── LICENSE
-└── README.md
-```
-
-### Main Files
-
-* `dijkstra.py` — Core 4-connected weighted shortest-path search engine.
-* `wall_controller.py` — Supervisor controller responsible for dynamic obstacles, risk-map generation, planning, safety monitoring, and experiment logging.
-* `pedestrian.py` — Low-level e-puck PID waypoint-tracking controller.
-* `sensitivity_study.csv` — Summary metrics generated from the tested $\alpha$ configurations.
-* `tracking_alpha_*.csv` — Timestep-level heading telemetry from individual experiments.
 
 ---
 
