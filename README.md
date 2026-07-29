@@ -476,13 +476,13 @@ Experimental metrics are written to the project's CSV data files after successfu
 
 ## 📂 Experimental Data
 
-Raw experimental data is included in the repository to support reproducibility and additional analysis.
+Experimental results and raw telemetry are included in the repository to support reproducibility and further analysis.
 
 ### Sensitivity Study
 
 `data/sensitivity_study.csv`
 
-contains:
+contains summary metrics for each tested risk-sensitivity configuration:
 
 ```text
 Alpha,RHPlanningCycles,SafetyEvents,AvgComputationTime_ms,CumulativeRiskExposure,TotalPathLength_Steps
@@ -490,19 +490,13 @@ Alpha,RHPlanningCycles,SafetyEvents,AvgComputationTime_ms,CumulativeRiskExposure
 
 ### Heading Telemetry
 
-Each:
-
-```text
-data/tracking_alpha_<value>.csv
-```
-
-contains:
+The `data/tracking_alpha_<value>.csv` files contain timestep-level PID heading-tracking data:
 
 ```text
 time_s,reference_heading_deg,actual_heading_deg,heading_error_deg
 ```
 
-Providing the raw experimental telemetry allows the figures and additional controller-performance metrics to be independently calculated.
+These logs support analysis of the e-puck's heading-tracking performance across the tested risk-sensitivity configurations.
 
 ---
 
