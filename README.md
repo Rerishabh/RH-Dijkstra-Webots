@@ -147,23 +147,13 @@ The planner maintains a historical obstacle visitation map. When a modeled obsta
 
 Risk is spatially diffused around historically visited obstacle cells using a two-dimensional isotropic Gaussian kernel:
 
-$$
-G(\Delta x,\Delta y)
-=
-\exp\left(
--\frac{\Delta x^2+\Delta y^2}{2\sigma^2}
-\right)
-$$
+$$G(\Delta x,\Delta y)=\exp\left(-\frac{\Delta x^2+\Delta y^2}{2\sigma^2}\right)$$
 
 The accumulated contributions generate a spatial risk field in which regions near frequently visited obstacle locations receive higher risk values.
 
 Before traversal costs are generated, the risk field is normalized using:
 
-$$
-\tilde{R}(p)=
-\frac{R(p)}
-{R_{\max}+\varepsilon}
-$$
+$$\tilde{R}(p)=\frac{R(p)}{R_{\max}+\varepsilon}$$
 
 where $\varepsilon$ is a small numerical constant used to prevent division by zero.
 
