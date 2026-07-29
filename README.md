@@ -7,7 +7,7 @@ Watch the RH-Dijkstra planner perform real-time risk-aware navigation in Webots 
 ### RH-Dijkstra in Webots Demo
 
 ▶️ **Watch the full simulation video here:**  
-https://youtu.be/bDEnAkkta0g
+https://youtu.be/bDEnAkktaOg
 
 Webots implementation of the Recursive Heatmap Dijkstra (RH-Dijkstra) risk-aware path planning methodology for mobile robots operating in dynamic environments using Gaussian risk maps and PID trajectory tracking.
 
