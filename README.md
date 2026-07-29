@@ -1,0 +1,422 @@
+```python
+# Let's verify the exact content of wall_controller.py regarding the planning frequency to ensure absolute accuracy in the README prose.
+with open('wall_controller.py', 'r') as f:
+    code_content = f.read()
+
+# Let's inspect where counter % 20 appears
+import re
+print("Occurrences of counter % 20:")
+for line in code_content.splitlines():
+    if 'counter % 20' in line or 'violation_detected' in line:
+        print(line)
+
+
+```
+
+```text
+Occurrences of counter % 20:
+    violation_detected = False
+            violation_detected = True
+    if violation_detected and (counter % 20 == 0):
+    if counter % 20 == 0:
+
+
+```
+
+# Recursive Heatmap Dijkstra Path Planning in Webots
+
+## 🎥 Demonstration Video
+
+Watch the RH-Dijkstra planner perform real-time risk-aware navigation in Webots using Gaussian risk maps, dynamic obstacle avoidance, and PID trajectory tracking.
+
+▶️ **Watch the full simulation video here:**
+
+[https://youtu.be/bDEnAkkta0g](https://youtu.be/bDEnAkkta0g)
+
+---
+
+Webots implementation of the Recursive Heatmap Dijkstra (RH-Dijkstra) risk-aware path planning algorithm for mobile robots operating in dynamic and uncertain environments using Gaussian risk maps and PID trajectory tracking.
+
+This project was developed as part of an academic exploration of risk-aware mobile robot navigation using Webots and the e-puck robot platform. It presents an educational implementation and evaluation inspired by the Recursive Heatmap Dijkstra (RH-Dijkstra) methodology described in the reference literature.
+
+**Target Audience:** This repository is intended for students, robotics enthusiasts, and researchers interested in:
+
+* Mobile robot navigation
+
+
+* Risk-aware path planning
+
+
+* Dynamic obstacle avoidance
+
+
+* Webots simulation environments
+
+
+* Autonomous robotics research
+
+
+
+---
+
+## ✨ Features
+
+* Recursive Heatmap Dijkstra (RH-Dijkstra) implementation
+
+
+* Dynamic obstacle avoidance
+
+
+* Gaussian risk diffusion modeling
+
+
+* PID trajectory tracking
+
+
+* Automatic CSV telemetry logging
+* Risk sensitivity experiments across multiple $\alpha$ values
+
+
+* Webots R2025a compatible
+
+
+* e-puck robot integration
+
+
+* Periodic graph recomputation and replanning support
+
+
+
+---
+
+## 📜 Academic Attribution & Reference
+
+This work reproduces the key conceptual ideas of the RH-Dijkstra architecture within a custom simulation environment for educational experimentation, evaluation, and learning. The underlying mathematical and cost-shaping formulations are attributed to:
+
+* **Paper Title:** Recursive Heatmap Dijkstra-Based Risk Aware Path Planning for Mobile Robots in Dynamic and Uncertain Environments
+
+
+* **Authors:** Baris Yasin Demir and Yavuz Eren (Marmara University / Yildiz Technical University)
+
+
+* **Journal:** IEEE Access (Volume 14, 2026)
+
+
+* **DOI:** [10.1109/ACCESS.2026.3692299](https://doi.org/10.1109/ACCESS.2026.3692299)
+
+
+---
+
+## 🧠 Core Mathematical Formulation
+
+The path cost function evaluates transitions into a candidate cell node by scaling a unit traversal cost using a normalized Gaussian risk estimate and an adaptive risk sensitivity exponent parameter ($\alpha$):
+
+$$C(p_k,p_{k+1}) = (1+\tilde{R}(p_{k+1}))^\alpha$$
+
+where:
+
+* $\tilde{R}(p_{k+1})$ is the normalized Gaussian risk value associated with the destination cell.
+
+
+* $\alpha$ controls the planner's sensitivity to environmental risk.
+
+
+
+### Risk Sensitivity Interpretation
+
+* **When $\alpha = 0.0$:** Every traversable cell receives the same transition cost, causing the planner to behave as a classical shortest-path Dijkstra search.
+
+
+* **When $\alpha = 1.0$:** The planner introduces linear sensitivity to environmental risk while preserving efficient route selection.
+
+
+* **When $\alpha = 2.0$:** The paper-standard configuration increasingly penalizes traversal through high-risk regions and promotes safer alternative paths.
+
+
+* **When $\alpha = 3.0$:** Risk penalties become significantly amplified, encouraging highly conservative navigation behavior.
+
+
+
+---
+
+## 🛠️ Simulation Configuration & Specifications
+
+This framework was evaluated using the following software stack and simulation configuration:
+
+* **Simulator Version:** Webots R2025a (Tested)
+
+
+* **Python Version:** Python 3.10+
+
+
+* **Robot Platform:** e-puck (Differential-Drive)
+
+
+* **Grid Resolution:** 10 × 10 Discrete Cell Nodes
+
+
+* **Dynamic Obstacles:** 4 Synchronized Moving Hazards
+
+
+* **Planning Method:** Recursive Heatmap Dijkstra (RH-Dijkstra)
+
+
+* **Motion Controller:** Discrete-Time PID Heading Tracking
+
+
+* **Risk Diffusion Kernel:** Two-Dimensional Isotropic Gaussian
+
+
+
+---
+
+## 🚀 Author Contributions & Implementation Scope
+
+The Webots implementation scene, supervisor tracking files, controller integration, and empirical framework were developed independently in this project:
+
+* **Simulation Environment Design:** Built the custom 10×10 grid world map with synchronized dynamic and static hazards.
+
+
+* **Proactive Risk Diffusion:** Developed the live-updating historical visitation heatmap smoothed via two-dimensional Gaussian convolution kernels to model cumulative environmental danger over time.
+
+
+* **Periodic Replanning Architecture:** Integrated a 4-connected topology graph-search engine recomputing paths periodically (every 20 control steps) while simultaneously logging proximity safety breaches.
+
+
+* **Low-Level Locomotion Tracking:** Engineered a discrete-time closed-loop PID heading tracking controller to maintain path tracking and physical vehicle stability.
+
+
+* **Automated Data Logging Pipeline:** Built a custom supervisor module that calculates and appends operational benchmarks directly to an external database file on simulation completion.
+
+---
+
+## 🔍 Scope Boundaries (What Was Not Implemented)
+
+To maintain project feasibility within the current simulation development cycle, certain specialized configurations and comparative testing cases from the reference paper were intentionally left outside the scope of this project:
+
+* **Norm-Bounded Uncertainty Modeling ($\vert{}w_k\vert{}_2 \le \rho$):** Section III-C of the paper introduces an uncertainty radius around obstacle vectors to expand safety margins against sensing anomalies. This implementation utilizes direct access to simulator ground-truth position information through the supervisor node, assuming accurate state estimation.
+
+
+* **Large-Scale Multi-Scenario Benchmarking:** The reference study evaluates multiple environment configurations and comparative planning scenarios, including larger grid layouts and D* Lite comparisons. This implementation focuses on a single 10×10 environment with dynamic hazards to study recursive replanning behavior and risk-aware cost shaping.
+
+
+* **Alternative Experimental Metrics:** The authors report specific performance profiles including Time-to-Goal (TG), Heading Error RMS (HE-RMS), and Rejoining Penalty (RP). This study instead evaluates the environment through path length, risk exposure indices, total planning cycles, and safety event metrics.
+
+
+
+---
+
+## 🖥️ Simulation Environment & Runtime Setup
+
+### Full Application Workspace Setup
+
+
+*Full application workspace screen setup.*
+
+### Webots Arena Layout
+
+
+Figure 1: 10×10 discrete grid simulation arena featuring the e-puck platform, target goal, and synchronized dynamic hazards.
+
+### Runtime Navigation Demonstration
+
+When $\alpha = 0.0$ (Classical Baseline), the robot follows the shortest diagonal path. When $\alpha \ge 1.0$, it automatically recalculates a safe bypass route down the left flank of the grid map.
+
+| Initial Route Staging | Mid-Path Hazard Avoidance |
+| --- | --- |
+|  |  |
+| **Bypass Route Staging** | **Bypass Path Clearance** |
+|  |  |
+
+Figure 2: Runtime navigation timeline showing dynamic path updates used to guide the e-puck around moving hazards.
+
+---
+
+## 📊 Experimental Evaluation & Sensitivity Results
+
+The following benchmarking data was generated directly from simulation runs performed in this project across various risk-sensitivity configurations ($\alpha$):
+
+| Alpha Setting ($\alpha$) | RH Planning Cycles | Safety Events (Breaches) | Avg Computation Time | Cumulative Risk Exposure | Total Path Length (Steps) |
+| --- | --- | --- | --- | --- | --- |
+| **0.0 (Blind Baseline)** | 106 | 22 | 3.47 ms | 632.49 | 17 |
+| **1.0 (Linear Risk)** | 103 | 16 | 3.25 ms | 619.29 | 17 |
+| **2.0 (Paper Standard)** | 103 | 16 | 3.51 ms | 619.29 | 17 |
+| **3.0 (Aggressive Aversion)** | 103 | 16 | 3.51 ms | 619.29 | 17 |
+
+### Comprehensive Sensitivity Bar Charts
+
+
+*Comprehensive sensitivity analysis bar charts across tested $\alpha$ configurations.*
+
+### Empirical Data Log Matrix
+
+
+Figure 3: Empirical telemetry data automatically logged by the supervisor controller upon goal arrival during simulation runs.
+
+### Heading Error Dynamics Tracking Plot
+
+
+*Heading error dynamics tracking and comparison plot across baseline and risk-aware settings.*
+
+---
+
+## 🔍 Key Engineering Findings
+
+* **Perimeter Violation Mitigation:** Transitioning from the baseline pathfinder ($\alpha = 0.0$) to active cost-shaping ($\alpha \ge 1.0$) yielded an immediate 27.3% reduction in safety events (dropping from 22 down to 16 events) within the tested environment.
+
+
+* **Discrete Optimization Stability:** Due to the discrete cell topology of the graph, the path layout plateaus optimally at $\alpha = 1.0$, demonstrating robust behavioral consistency as risk scaling grows steeper; the environment did not contain enough competing paths with different risk profiles to alter the trajectory further at higher exponents.
+
+
+* **Real-Time Execution Feasibility:** Across all trials, global recomputation times consistently stayed below 4.0 milliseconds, demonstrating the feasibility of real-time execution within the tested simulation environment.
+
+
+
+---
+
+## 🚀 Installation & Replication Guide
+
+Follow these steps to set up the workspace, open the consoles, modify hyperparameters, and run simulations locally using Webots.
+
+### 1️⃣ Clone the Repository
+
+Download or clone the repository files to your local machine:
+
+```bash
+git clone https://github.com/Rerishabh/RH-Dijkstra-Webots.git
+
+```
+
+Then enter the project directory:
+
+```bash
+cd RH-Dijkstra-Webots
+
+```
+
+### 2️⃣ Launch Webots & Open the Simulation World
+
+1. Open **Webots R2025a** (or a newer compatible version).
+
+
+2. Click the **Open an existing world file** button (📂 Folder icon) on the top toolbar, or navigate to:
+```text
+File → Open World...
+
+```
+
+
+3. Select and open:
+```text
+worlds/rh_dijkstra_environment.wbt
+
+```
+
+
+
+### 3️⃣ Open the Built-in Code Editors
+
+To ensure all project files are initialized and visible alongside the 3D simulation view:
+
+1. Navigate to the top menu bar and click:
+```text
+Tools → Text Editor
+
+```
+
+
+*(Shortcut: `Ctrl + E`)*
+2. Load the corresponding controller files:
+```text
+controllers/wall_controller/dijkstra.py
+controllers/wall_controller/wall_controller.py
+controllers/pedestrian/pedestrian.py
+
+```
+
+
+
+### 4️⃣ Open the Output Execution Console
+
+To observe live coordinates, planning cycles, computation timings, and path updates:
+
+1. Open:
+```text
+Tools → New Console
+
+```
+
+
+*(Shortcut: `Ctrl + N`)*
+2. A dedicated **Console - All** panel will appear at the bottom of the interface and stream runtime information generated by the controllers.
+
+
+
+### 5️⃣ Tune Risk Sensitivity Parameters
+
+1. Open `controllers/wall_controller/wall_controller.py`
+2. Locate the global parameter:
+```python
+ALPHA = 2.0
+
+```
+
+
+3. Modify it according to the desired experiment configuration:
+
+
+```python
+ALPHA = 0.0   # Classical shortest path baseline
+ALPHA = 1.0   # Moderate risk awareness
+ALPHA = 2.0   # Paper standard configuration
+ALPHA = 3.0   # High risk aversion
+
+```
+
+
+4. Save the script using `Ctrl + S`.
+
+### 6️⃣ Run & Reset the Simulation
+
+* **▶️ Run Simulation:** Click the **Play** button on the top toolbar to start execution.
+
+
+* **🔄 Reset Simulation:** Click **Pause**, click **Reset Simulation**, modify your `ALPHA` parameter, save, and press **Play** again for subsequent trials.
+
+---
+
+## 📁 Repository Structure
+
+```text
+RH-Dijkstra-Webots/
+├── controllers/
+│   ├── wall_controller/
+│   │   ├── dijkstra.py            # Core 4-connected shortest path search engine
+│   │   └── wall_controller.py     # Supervisor controller, data logging, & risk map logic
+│   └── pedestrian/
+│       └── pedestrian.py          # PID low-level trajectory execution tracker
+├── worlds/
+│   ├── rh_dijkstra_environment.wbt  # Webots 10x10 world scene file
+│   └── .rh_dijkstra_environment.wbproj # Webots project configuration file
+├── data/
+│   ├── sensitivity_study.csv      # Automatically compiled CSV benchmarks sheet
+│   ├── tracking_alpha_0.0.csv     # PID heading tracking log for alpha = 0.0
+│   ├── tracking_alpha_1.0.csv     # PID heading tracking log for alpha = 1.0
+│   ├── tracking_alpha_2.0.csv     # PID heading tracking log for alpha = 2.0
+│   └── tracking_alpha_3.0.csv     # PID heading tracking log for alpha = 3.0
+├── images/
+│   ├── arena_environment.png      # Close-up layout view of the grid arena
+│   ├── runtime_navigation_1.png   # Pass 1 start location snapshot
+│   ├── runtime_navigation_1.1.png # Pass 1 midpoint snapshot
+│   ├── runtime_navigation_2.png   # Pass 2 alternative route snapshot
+│   ├── runtime_navigation_2.1.png # Pass 2 timeline progression snapshot
+│   ├── sensitivity_analysis.png   # Comprehensive sensitivity bar charts
+│   ├── sensitivity_results.png    # Spreadsheet metrics data log crop snippet
+│   ├── tracking_heading_comparison.png # Heading error dynamics tracking plot
+│   └── webots_environment.png     # Full application workspace screen setup
+├── rh_dijkstra_environment.mp4    # Complete simulation run recording 1
+├── rh_dijkstra_environment_1.mp4  # Complete simulation run recording 2
+├── LICENSE                        # Open-source MIT License
+└── README.md                      # Documentation file
+
+```
